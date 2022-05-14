@@ -1,0 +1,274 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>COB155 Lab 02 - Touch events, gestures, and device access</title>
+<meta type="viewport" content="width=device-width">
+<style>
+	body {
+		width: 98vw;
+	}
+	#touch_area {
+		border: solid 0.5vmin;
+		width:40%;
+		height:30%;
+		position: absolute;
+		top:20vmin;
+		left:2vmin;
+		font-size:2vmin;
+	}
+	#touch_box {
+		font-size:2vmin;
+		border: solid 0.5vmin;
+		position:absolute;
+		width:10vmin;
+		height:10vmin;
+	}
+	#article {
+		position: absolute;
+		top: 50vmin;
+	}
+</style>
+
+</head>
+
+<body>
+
+<h1>COB155 Lab 02 - Touch events, gestures, and device access</h1>
+
+<h2>Section 1: Touch events and simple gestures </h2>
+<div id="touch_area">
+	<div id="touch_box">
+	touch_box
+	</div>
+	<br><br><br><br>
+	<br><br><br><br>
+	<br><br><br><br>
+	touch_area
+</div>
+<div id="article">
+<p>In this section we will play with touch events to achieve certain features for the section1.html webpage attached. The figure above shows the structure
+of the section1.html page. You will go through the following exercises by adding or changing the JavaScript contained in the page to enable the user to:</p>
+<ol>
+<li>change the background color of touch_area with a single touch;</li>
+<li>highlight touch_box (e.g. enlarge it) when user tap and hold it;</li>
+<li>drag touch_box around when and only when it is selected by tap and hold</li>
+</ol>
+
+<h3>Step 1: changing touch_area color with a single touch</h3>
+<p>
+This is simple, and hopefully will quickly get your hands on basic touch event handlers. All you need to do is making the touch_area touchable by adding one of the touch event handlers
+to it. Because we are interested only in whether it has been touched, it is enough to just look at the touchstart event.
+</p>
+<p>
+You can add a touchevent handler to an element in the following way:
+</p>
+<code>
+ myElement.addEventListener('touch_event_name', function(e){<br>
+     //handling the event<br>
+ })
+</code>
+<p>In order to change the background colour of the element you will need to deal with its .style.backgroundColor. A function called
+getRandomColor(), which returns a random color in RGB, has been provided in section1.html for you.</p>
+
+<p>An onload event handler for the page is also provided in the page. Inside the onload event handler, try to add a touchstart event handler to the element touch_area,
+and change its background colour to a random one every time it is touched.</p>
+<p><i>Think: why is the touch event handlers added inside the page onload event?</i></p>
+
+
+<h3>Step 2: drag touch_box around</h3>
+<p>
+To drag an element you will need to consider touchmove event as well as touchstart. You might want to get the position of the element when it is touched, and move it
+based on the movement of the touch.
+</p>
+<p>
+Add the following code inside the page onload handler:
+</p>
+<code>
+	touch_box = document.getElementById('touch_box');<br>
+	 // give the touch_box an initial position (Think: Can you do this in CSS?)<br>
+	 touch_box.style.left = "10px";<br>
+	 boxleft = null; // left position of moving box<br>
+	 startx = null; // starting x coordinate of touch point<br>
+	 touchobj = null; // Touch object holder<br>
+		 <br>
+	 touch_box.addEventListener('touchstart', function(e){<br>
+	  touchobj = e.changedTouches[0]; // reference first touch point<br>
+	  boxleft = parseInt(touch_box.style.left); // get left position of box<br>
+	  startx = parseInt(touchobj.clientX); // get x coord of touch point<br>
+	 })<br>
+	 <br>
+	 touch_box.addEventListener('touchmove', function(e){<br>
+			  touchobj = e.changedTouches[0]; // reference first touch point for this event<br>
+			  var distx = parseInt(touchobj.clientX) - startx; // calculate dist traveled by touch point<br>
+			 // move box according to starting position and distance moved:<br>
+			  touch_box.style.left = boxleft + distx + 'px';<br>
+	 })<br>
+</code>
+<p>You should now be able to drag your touch_box horizontally. Read the code and comments, try to understand it, see the W3C touch event specification for details of
+the properties attached to the event.</p>
+<p> Now try adding necessary code to enable vertical dragging of the touch_box.</p>
+
+<p><i>Think: can you use screenX instead of clientX? Is touch_area changing its background colour when you are actually dragging touch_box?</i></p>
+
+
+<h3>Step 3: changing touchstart event to JQuery mobile tap event for touch_area</h3>
+<p>
+You probably noticed that touch_area is changing colour even if you intend to drag touch_box. This is because every time you touch and drag touch_box, you also touched
+the touch target of touch_area and triggered its touchstart event. Instead of handling the touchstart event, you really need to separate out the tap gesture for touch_area.
+You can, but you don't have to, combine several touch events to define the tap gesture yourself, but JQuery mobile has already done this for you. JQuery and JQuery mobile
+library are already in the folder and have both been linked in section1.html so you can start using it now.
+</p>
+<p>
+Adding a JQuery tap event to an element is simple:
+</p>
+<code>
+	 jQuery( "#touch_area" ).on( "tap", function( event ) { <br>
+	 //Handle the event<br>
+	  } )
+</code>
+<p>Now replace the touchstart event with JQuery mobile tap event for touch_area. After you finish, try it out and see whether touch_area changes colour when you drag touch_box.</p>
+
+
+<h3>Step 4: add taphold event to touch_box</h3>
+<p>
+Now we can drag touch_box as will. But we wanted to drag the touch_box only when we select it with tap and hold. So let's sort out the selection part first.
+</p>
+<p>
+Try adding a JQuery taphold event to touch_box, when it is tapped and held, highlight it in some way. e.g. enlarging it:
+</p>
+<code>
+		 touch_box.style.width = "20vmin"; <br>
+		 touch_box.style.height = "20vmin";<br>
+</code>
+<p>Now after you tapped and held it, it is highlighted. But you might want it to go back to normal style after the user release the touch. So you have to do something when the taphold ends.
+But you need an event handler to be triggered in order to do something, what is it? In fact, if you read the JQuery mobile documentation it is stated that when taphold event ends, the <strong>tap</strong>
+ event handler will be called. Therefore you can change the style of touch_box back to normal
+in the tap event handler.</p>
+<p>So now try adding a tap event handler to touch_box, and try changing the style of touch_box back to normal in it. e.g. If you have enlarged it as we suggested,
+you probably want to change it back to its orignal size: </p>
+<code>
+		 touch_box.style.width = "10vmin"; <br>
+		 touch_box.style.height = "10vmin";<br>
+</code>
+<p>After you finish, try it in browser and see how it goes. Is this enough?</p>
+
+<p>It probably is not... you may have noticed that if you happened to have moved you finger when you are holding touch_box, even just for a little bit, then the tap event handler won't be called and your
+touch_box is not back to normal style. If you tried it on a real mobile touch screen this will be more obvious because you are more likely to have moved your finger than emulating with a mouse.
+ So what is happening?</p>
+.<br>.<br>.<br>.<br>.<br>.<br>
+<p> Indeed, you might have guessed it, it is the touchend event that is triggered if you have moved when you are holding an element. Therefore, you probably want to put the same code that gets touch_box back
+to normal in the touchend event handler again. </p>
+<p><i>Think: After handling the touchend event of touch_box to change its style back, do you still need to keep the tap event for touch_box,
+ in case you manage to not move your finger while holding touch_box and that the normal style is still applied?</i></p>
+
+
+<h3>Step 5: allow dragging only when touch_box is being held</h3>
+<p>Now the final step is to link the condition of whether touch_box is being held to the dragging action. I would just set a global flag when touch_box is being held, and let the dragging
+function check the flag before allowing the movement of touch_box, but you might have other ideas.</p>
+
+<h3>Summary</h3>
+<p>Hopefully if you have gone through all the exercises you should now have a good idea of how touch events work and how they can be handled, as well as handling some simple gestures with JQuery mobile.
+Handling cooler gestures with a different library is in fact very similar.</p>
+
+<h2>Section 2: Device Access</h2>
+<p>In this section we will play with media capture, accessing geoLocation, and local storage APIs. Using media capture to access camera only works on mobile devices, so you have to test this part of the function on your mobile device. In the future, remember to always check the compatibility of any API you intend to use before you proceed with implementation.</p>
+<p>Go through the following exercises, and work with the source code of section2.html and complete the JavaScript functions in section2.js, both of which are in this folder, to:</p>
+<ol>
+<li>Access the device's camera</li>
+<li>Take a snapshot and display it</li>
+<li>Access a device's geolocation</li>
+<li>Save the snapshot in local storage with some annotation and get them out after reloading the page;</li>
+</ol>
+
+<h3>Step 1: Access the device's camera</h3>
+<p>
+HTML media capture provides access to camera, video, audio by overloading the <code>&lt;input type="file"></code> and adding new values for the accept parameter.
+</p>
+<p>
+There is an HTML file input element already created for you with the ID "access_camera". Modify it to access the built-in camera.
+</p>
+<p>You can refer to the lecture slides for the syntax of HTML media capture.</p>
+
+<h3>Step 2: Take a snapshot and display it</h3>
+<p>
+When you click on an HTML media capture input element on a mobile device, you will leave the webpage and go to the device's built in camera app, where you can use the functions provided to take a snapshot. And the snapshot is saved as a temporary file.
+</p>
+<p>To display the snapshot on canvas, four steps are needed:</p>
+<p>1) Use a FileReader to read the temporary file as a dataURL.</p>
+<code>
+	var reader = new FileReader();<br />
+	reader.readAsDataURL(file);
+</code>
+<p>2) When the reader successfully reads the file, use the dataURL to create an image element.</p>
+<code>
+reader.onload = function (e) {<br />
+	var dataURL = e.target.result,<br />
+	img = new Image();//Create new Image element<br />
+	img.src = dataURL;//set source path<br />
+}
+</code>
+<p>3) Get hold of the 2D context of the canvas element.</p>
+<code>
+	var mycontext = mycanvas.getContext("2d");<br>
+</code>
+<p>Note that mycanvas is just a dummy name, you need to get hold of the appropriate element first by yourself.</p>
+<p>4) When the image is loaded, scale down the image using <code>mycontext.scale(scalefactor,scalefactor)</code>, then draw it using <code> mycontext.drawImage(src,offset-x,offset-y):</code></p>
+<p>Now
+do your own displaySnapshot function. The canvas element is already added in the playground div:</p>
+<code>
+	&lt;canvas>&lt;/canvas>
+</code>
+
+<h3>Step 3: Access a device's geolocation</h3>
+<p>Now let us get the user's current location and display it on the webpage. You can access device's geolocation using <code>navigator.geolocation</code></p>
+<p>First we need to check if your browser supports navigator.geolocation:</p>
+<code>
+if(navigator.geolocation){<br />
+				//the browser supports it, get the current position<br />
+				navigator.geolocation.getCurrentPosition(onSuccess,onError,options);<br />
+}<br />
+else<br />
+{				//display an error message<br />
+}
+</code>
+<p>Then you need to define the success callback function to display the location. You can get the location by using <code>position.coords.latitude</code>, <code>position.coords.longitude</code>, and accuracy by using  <code>position.coords.accuracy</code>.</p>
+<p>Note that <code>navigator.geolocation</code> can only be tested using https.</p>
+<p>If you feel like going an extra mile, google some instructions on how to use the google map API to display the user's location on a map.</p>
+
+<h3>Step 4: saving the snapshot and geoLocation as annotation in local storage</h3>
+<p>
+Now let's automatically annotate the snapshot with the geoLocation we retrieved in step 4, and save the image and annotation in local storage so that we can revisit them later on.
+</p>
+<p>
+The local storage API allows you to push and retreive simple key value pairs:
+</p>
+<code>
+		 localStorage.setItem(key,value); <br>
+		 localStorage.getItem(key);<br>
+</code>
+<p>Now the question is, we know how to persist strings with those functions, but what about image. Well, you probably need to convert the image into
+a string before putting it into the local storage. It turns out that the canvas element has handy function called toDataURL that will convert its current drawing
+into a base64 string representation.</p>
+<p>So now convert the image on the canvas to a base64 string representation using: </p>
+<code>
+		 mycanvas.toDataURL(image_type);<br>
+</code>
+<p>Note that mycanvas and image_type are dummy names you need to get hold of the canvas element yourself and also choose the image type for your conversion.</p>
+
+<p>After that, simply save the image and geolocation strings into local storage. Then use
+the Chrome development tool --> resource tab to check whether you have it in the local storage.</p>
+
+
+<h3>Step 5: retrieve the image and annotation</h3>
+<p>Now the final step is to retrieve them. You can set the base64 string representation as the src of a img element directly, and it shouldn't be too difficult for you
+to set the annotation string retrieved as the content of a paragraph.</p>
+
+<h3>Summary</h3>
+<p>Hopefully if you have gone through all the exercises you should now have a good idea of how device access works and what you can do with the information you get, as well as
+how the basic local storage APIs work.</p>
+</div>
+
+
+</body>
+</html>
