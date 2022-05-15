@@ -18,7 +18,7 @@ public class UserGuideActivity extends AppCompatActivity {
 
         webView = (WebView) findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("https://www.nbadraft.net/");
+        webView.loadUrl("file:///android_asset/UserGuide.html");
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
