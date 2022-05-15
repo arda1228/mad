@@ -6,13 +6,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +27,7 @@ import java.net.URL;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
     EditText cityEd, cityEd2;
     Button btnFetch;
     String departing, destination;
@@ -39,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_search);
         cityEd = findViewById(R.id.city_et);
         cityEd2 = findViewById(R.id.city_et2);
         btnFetch = findViewById(R.id.btn_fet);
@@ -344,7 +342,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Log.v("TAG", String.valueOf(dateButton.getText()));
                     Log.v("TAG", String.valueOf(dateButton2.getText()));
 
-                Intent intent = new Intent(MainActivity.this, ResultsActivity.class);
+                Intent intent = new Intent(SearchActivity.this, ResultsActivity.class);
                 intent.putExtra("minCurrencyCode", minCurrencyCode);
                 intent.putExtra("minRoundedAmount", String.valueOf(minRoundedAmount));
                 intent.putExtra("minCurrentOfferLeg0", minCurrentOfferLeg0.toString()); //cast to json object in next act

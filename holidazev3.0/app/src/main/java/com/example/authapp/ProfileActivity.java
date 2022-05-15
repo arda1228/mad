@@ -57,7 +57,16 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        search = (Button) findViewById(R.id.search);
+//        search = (Button) findViewById(R.id.search);
+//
+//        search.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(ProfileActivity.this, SearchActivity.class));
+//            }
+//        });
+
+        search = findViewById(R.id.search);
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override

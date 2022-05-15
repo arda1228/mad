@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ResultsActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3"
+        android:layout_width="411dp"
+        android:layout_height="240dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="252dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/airlineName0"
+            android:layout_width="389dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="220dp"
+            android:text="airlineName0"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/flightNumber0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="12dp"
+            android:text="flightNumber0"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/durationInSeconds0"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:layout_marginEnd="220dp"
+            android:text="durationInSeconds0"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/departureAirportCode0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="130dp"
+            android:layout_marginEnd="12dp"
+            android:text="departureAirportCode0"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/arrivalAirportCode0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="155dp"
+            android:layout_marginEnd="220dp"
+            android:text="arrivalAirportCode0"
+            android:textSize="20sp" />
+
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.344"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/currency"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="192dp"
+            android:text="currency"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="78dp"
+            android:layout_marginEnd="316dp"
+            android:layout_marginRight="40dp"
+            android:text="price"
+            android:textSize="30sp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="411dp"
+        android:layout_height="240dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <TextView
+            android:id="@+id/airlineName1"
+            android:layout_width="390dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="220dp"
+            android:text="airlineName1"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/flightNumber1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="12dp"
+            android:text="flightNumber1"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/durationInSeconds1"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:layout_marginEnd="220dp"
+            android:text="durationInSeconds1"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/departureAirportCode1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="130dp"
+            android:layout_marginEnd="12dp"
+            android:text="departureAirportCode1"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/arrivalAirportCode1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="155dp"
+            android:layout_marginEnd="220dp"
+            android:text="arrivalAirportCode1"
+            android:textSize="20sp" />
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
