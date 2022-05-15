@@ -8,18 +8,18 @@
     tools:context=".SearchActivity">
 
     <EditText
+        android:id="@+id/city_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Departing Airport IATA code"
-        android:id="@+id/city_et"
-        android:textSize="30sp"/>
+        android:textSize="30sp" />
 
     <EditText
+        android:id="@+id/city_et2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Destination Airport IATA code"
-        android:id="@+id/city_et2"
-        android:textSize="30sp"/>
+        android:textSize="30sp" />
 
 
     <TextView
@@ -41,13 +41,27 @@
         style="?android:spinnerStyle"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
+        android:onClick="openDatePicker"
         android:text="MAY 18 2022"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:onClick="openDatePicker"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView2"
@@ -67,6 +81,7 @@
         style="?android:spinnerStyle"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
+        android:onClick="openDatePicker2"
         android:text="MAY 18 2022"
         android:textColor="@color/black"
         android:textSize="30sp"
@@ -75,9 +90,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:onClick="openDatePicker2"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/btn_fet"
@@ -85,4 +98,5 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:text="find cheapest direct flight" />
+
 </LinearLayout>

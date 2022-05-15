@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class BucketList extends AppCompatActivity
 {
@@ -22,6 +23,7 @@ public class BucketList extends AppCompatActivity
         setNoteAdapter();
         setOnClickListener();
     }
+
 
 
     private void initWidgets()
@@ -62,13 +64,15 @@ public class BucketList extends AppCompatActivity
     {
         Intent newNoteIntent = new Intent(this, NoteDetailActivity.class);
         startActivity(newNoteIntent);
-
     }
+
+
 
     @Override
     protected void onResume()
     {
         super.onResume();
         setNoteAdapter();
+        Toast.makeText(getApplicationContext(),"resumed",Toast.LENGTH_SHORT).show();
     }
 }

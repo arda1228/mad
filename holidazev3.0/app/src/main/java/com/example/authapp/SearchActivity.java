@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     String departing, destination;
     private DatePickerDialog datePickerDialog,datePickerDialog2;
     private Button dateButton, dateButton2;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         dateButton2 = findViewById(R.id.datePickerButton2);
         dateButton2.setText(getTodaysDate());
 
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
     // date stuff begins
@@ -210,6 +213,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             destination = cityEd2.getText().toString();
             try {
                 getData(departing, destination);
+                progressBar.setVisibility(View.VISIBLE);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
