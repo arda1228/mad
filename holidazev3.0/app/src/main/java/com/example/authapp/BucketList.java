@@ -73,6 +73,5 @@ public class BucketList extends AppCompatActivity
     {
         super.onResume();
         setNoteAdapter();
-        Toast.makeText(getApplicationContext(),"resumed",Toast.LENGTH_SHORT).show();
     }
 }

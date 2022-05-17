@@ -2,8 +2,11 @@ package com.example.authapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private Button logout, chosen_folder, bucketList, settings, search, userGuide;
+    private Button logout, bucketList, search, userGuide;
 
 
 
@@ -22,20 +25,25 @@ public class ProfileActivity extends AppCompatActivity {
 
         logout = (Button) findViewById(R.id.signOut);
 
-        logout.setOnClickListener(new View.OnClickListener() {
+        logout.setOnTouchListener(new View.OnTouchListener() {
+            GestureDetector gestureDetector = new GestureDetector(getApplicationContext(), new GestureDetector.SimpleOnGestureListener(){
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    Toast.makeText(getApplicationContext(), "logging out", Toast.LENGTH_SHORT).show();
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+                    super.onLongPress(e);
+                }
+                @Override
+                public boolean onSingleTapConfirmed(MotionEvent e) {
+                    Toast.makeText(getApplicationContext(), "long press to log out", Toast.LENGTH_SHORT).show();
+                    return super.onSingleTapConfirmed(e);
+                }
+            });
             @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
-            }
-        });
-
-        chosen_folder = (Button) findViewById(R.id.chosen_folder);
-
-        chosen_folder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ProfileActivity.this, ChosenFolder.class));
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                gestureDetector.onTouchEvent(motionEvent);
+                return false;
             }
         });
 
@@ -47,24 +55,6 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(ProfileActivity.this, BucketList.class));
             }
         });
-
-        settings = (Button) findViewById(R.id.settings);
-
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ProfileActivity.this, SettingsActivity.class));
-            }
-        });
-
-//        search = (Button) findViewById(R.id.search);
-//
-//        search.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(ProfileActivity.this, SearchActivity.class));
-//            }
-//        });
 
         search = findViewById(R.id.search);
 

@@ -1,5 +1,6 @@
 package com.example.authapp;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import java.util.Date;
 
@@ -69,7 +72,6 @@ public class NoteDetailActivity extends AppCompatActivity
             selectedNote.setDescription(desc);
             sqLiteManager.updateNoteInDB(selectedNote);
         }
-
         finish();
     }
 

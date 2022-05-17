@@ -7,7 +7,7 @@
     tools:context=".ResultsActivity">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView3"
+        android:id="@+id/cardView1"
         android:layout_width="411dp"
         android:layout_height="240dp"
         android:layout_marginLeft="10dp"
@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="220dp"
+            android:textStyle="bold"
             android:text="airlineName0"
             android:textSize="30sp" />
 
@@ -32,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="12dp"
+            android:textStyle="bold"
             android:text="flightNumber0"
             android:textSize="30sp" />
 
@@ -42,6 +44,7 @@
             android:layout_marginTop="90dp"
             android:layout_marginEnd="220dp"
             android:text="durationInSeconds0"
+            android:textStyle="bold"
             android:textSize="30sp" />
 
         <TextView
@@ -51,6 +54,7 @@
             android:layout_marginTop="130dp"
             android:layout_marginEnd="12dp"
             android:text="departureAirportCode0"
+            android:textStyle="bold"
             android:textSize="20sp" />
 
         <TextView
@@ -59,6 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="155dp"
             android:layout_marginEnd="220dp"
+            android:textStyle="bold"
             android:text="arrivalAirportCode0"
             android:textSize="20sp" />
 
@@ -69,10 +74,11 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/cardView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.344"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,6 +91,7 @@
             android:layout_marginTop="28dp"
             android:layout_marginEnd="192dp"
             android:text="currency"
+            android:textStyle="bold"
             android:textSize="30sp" />
 
         <TextView
@@ -93,6 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="78dp"
+            android:textStyle="bold"
             android:layout_marginEnd="316dp"
             android:layout_marginRight="40dp"
             android:text="price"
@@ -100,9 +108,10 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
+        android:id="@+id/cardView3"
         android:layout_width="411dp"
         android:layout_height="240dp"
+        android:textStyle="bold"
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -118,6 +127,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="220dp"
             android:text="airlineName1"
+            android:textStyle="bold"
             android:textSize="30sp" />
 
         <TextView
@@ -127,6 +137,7 @@
             android:layout_marginTop="50dp"
             android:layout_marginEnd="12dp"
             android:text="flightNumber1"
+            android:textStyle="bold"
             android:textSize="30sp" />
 
         <TextView
@@ -136,6 +147,7 @@
             android:layout_marginTop="90dp"
             android:layout_marginEnd="220dp"
             android:text="durationInSeconds1"
+            android:textStyle="bold"
             android:textSize="30sp" />
 
         <TextView
@@ -145,6 +157,7 @@
             android:layout_marginTop="130dp"
             android:layout_marginEnd="12dp"
             android:text="departureAirportCode1"
+            android:textStyle="bold"
             android:textSize="20sp" />
 
         <TextView
@@ -154,6 +167,7 @@
             android:layout_marginTop="155dp"
             android:layout_marginEnd="220dp"
             android:text="arrivalAirportCode1"
+            android:textStyle="bold"
             android:textSize="20sp" />
 
 

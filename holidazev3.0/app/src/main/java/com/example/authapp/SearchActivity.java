@@ -209,6 +209,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_fet ) {
+            startService(new Intent(this, MyService.class));
             departing = cityEd.getText().toString();
             destination = cityEd2.getText().toString();
             try {
@@ -257,14 +258,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 e.printStackTrace();
             }
             JSONObject legsReferenceObject = new JSONObject();
-//            Log.v("TAG",String.valueOf(jsonObject.get("errors")));
-//            JSONArray errorsArray = (JSONArray) jsonObject.getJSONArray("errors");
-//            JSONObject errorsObj = (JSONObject) errorsArray.get(0);
-//            if (errorsObj.get("errorCode") == "INVALID_INPUT") {
-//                Log.v("TAG", "Legs array empty");
-//                Toast.makeText(getApplicationContext(),"one invalid airport code/ no direct flights found",Toast.LENGTH_SHORT).show();
-//            }
-//            else
                 if (jsonObject.getJSONArray("legs").length() !=0) {
                 for (int index = 0; index < jsonObject.getJSONArray("legs").length(); index++) {
                     JSONArray segmentsArr = new JSONArray();
@@ -337,7 +330,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
 
                 }
-//            Log.v("TAG", ""+offersAdvanced.get(0)+"");
                 Log.v("TAG", "" + minCurrencyCode + "");
                 Log.v("TAG", "" + minRoundedAmount + "");
                 Log.v("TAG", "" + minCurrentOfferLeg0 + "");
@@ -351,10 +343,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 intent.putExtra("minRoundedAmount", String.valueOf(minRoundedAmount));
                 intent.putExtra("minCurrentOfferLeg0", minCurrentOfferLeg0.toString()); //cast to json object in next act
                 intent.putExtra("minCurrentOfferLeg1", minCurrentOfferLeg1.toString()); //cast to json object in next act
+                    progressBar.setVisibility(View.GONE);
                 startActivity(intent);
-            } else {
+                } else {
                 Log.v("TAG", "Legs array empty");
-                Toast.makeText(getApplicationContext(),"one invalid airport code/ no direct flights found",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"no direct flights found",Toast.LENGTH_SHORT).show();
                 }
         }
     }

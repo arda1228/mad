@@ -68,13 +68,6 @@ public class SQLiteManager extends SQLiteOpenHelper
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion)
     {
-//        switch (oldVersion)
-//        {
-//            case 1:
-//                sqLiteDatabase.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + NEW_COLUMN + " TEXT");
-//            case 2:
-//                sqLiteDatabase.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + NEW_COLUMN + " TEXT");
-//        }
     }
 
     public void addNoteToDatabase(Note note)
