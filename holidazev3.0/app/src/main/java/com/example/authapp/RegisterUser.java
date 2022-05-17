@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
-
+    //  declaring variables
     private TextView banner, registerUser;
     private EditText editTextFullName, editTextAge, editTextEmail, editTextPassword;
     private ProgressBar progressBar;
@@ -33,20 +33,25 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
         mAuth = FirebaseAuth.getInstance();
 
+        // assigning respective view to variable
         banner = (TextView) findViewById(R.id.banner);
         banner.setOnClickListener(this);
 
+        // assigning respective view to variable
         registerUser = (Button) findViewById(R.id.registerUser);
         registerUser.setOnClickListener(this);
 
+        // assigning respective view to variable
         editTextFullName = (EditText) findViewById(R.id.fullName);
         editTextAge = (EditText) findViewById(R.id.age);
         editTextEmail = (EditText) findViewById(R.id.email);
         editTextPassword = (EditText) findViewById(R.id.password);
 
+        // assigning respective view to variable
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
+    // responding to click event
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

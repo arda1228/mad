@@ -10,7 +10,9 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 public class MyService extends Service {
+    //  declaring variable
     private MediaPlayer player;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {

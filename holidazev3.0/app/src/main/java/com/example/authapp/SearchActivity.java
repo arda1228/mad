@@ -29,6 +29,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
+    //  declaring variables
     EditText cityEd, cityEd2;
     Button btnFetch;
     String departing, destination;
@@ -40,23 +41,29 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        // assigning respective view to variable
         cityEd = findViewById(R.id.city_et);
         cityEd2 = findViewById(R.id.city_et2);
+
+        // assigning respective view to variable
         btnFetch = findViewById(R.id.btn_fet);
         btnFetch.setOnClickListener(this);
 
         initDatePicker();
         initDatePicker2();
+
+        // assigning respective view to variable
         dateButton = findViewById(R.id.datePickerButton);
         dateButton.setText(getTodaysDate());
 
+        // assigning respective view to variable
         dateButton2 = findViewById(R.id.datePickerButton2);
         dateButton2.setText(getTodaysDate());
 
+        // assigning respective view to variable
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
-
-    // date stuff begins
 
     private String getTodaysDate()
     {
@@ -205,7 +212,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         return rawDateSplit[2]+"-"+rawDateSplit[0]+"-"+rawDateSplit[1];
     }
 
-
+    // responding to click event
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_fet ) {

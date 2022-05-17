@@ -13,18 +13,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileActivity extends AppCompatActivity {
-
+    //  declaring variables
     private Button logout, bucketList, search, userGuide;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        // assigning respective view to variable
         logout = (Button) findViewById(R.id.signOut);
 
+        // responding to multiple touch events
         logout.setOnTouchListener(new View.OnTouchListener() {
             GestureDetector gestureDetector = new GestureDetector(getApplicationContext(), new GestureDetector.SimpleOnGestureListener(){
                 @Override
@@ -47,8 +47,10 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        // assigning respective view to variable
         bucketList = (Button) findViewById(R.id.bucketList);
 
+        // responding to click event
         bucketList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,6 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        // assigning respective view to variable
         search = findViewById(R.id.search);
 
         search.setOnClickListener(new View.OnClickListener() {
@@ -65,8 +68,10 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        // assigning respective view to variable
         userGuide = (Button) findViewById(R.id.userGuide);
 
+// responding to click event
         userGuide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Note
 {
+    //  declaring variables
     public static ArrayList<Note> noteArrayList = new ArrayList<>();
     public static String NOTE_EDIT_EXTRA =  "noteEdit";
 

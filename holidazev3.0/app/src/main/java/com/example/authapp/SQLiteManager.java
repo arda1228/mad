@@ -15,6 +15,7 @@ import java.util.Date;
 
 public class SQLiteManager extends SQLiteOpenHelper
 {
+    //  declaring variables
     private static SQLiteManager sqLiteManager;
 
     private static final String DATABASE_NAME = "NoteDB";

@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+//  declaring variables
     private TextView register;
     private EditText editTextEmail, editTextPassword;
     private Button signIn;
@@ -32,29 +33,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//      Handle registration by sending to RegisterUser.
+//      OnClickListener for register button
 
         register = (TextView) findViewById(R.id.register);
         register.setOnClickListener(this);
-
+//      Handle signin. OnClick listener initiated to handle request
         signIn = (Button) findViewById(R.id.signIn);
         signIn.setOnClickListener(this);
-
+//      Capture email and password to initiate signin process
         editTextEmail = (EditText) findViewById(R.id.email);
         editTextPassword = (EditText) findViewById(R.id.password);
-
+//      Initiate progressBar for user communication
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
+//      getInstance from Firebase for auth
         mAuth = FirebaseAuth.getInstance();
     }
 
+    // responding to click event
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.register:
+//                Send user to RegisterUser activity for new registration request
                 startActivity(new Intent(this, RegisterUser.class));
                 break;
 
             case R.id.signIn:
+//                Handle userLogin as per the userLogin() function
                 userLogin();
                 break;
         }
@@ -87,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editTextPassword.requestFocus();
             return;
         }
-
+//      Set progressBar to visible while user is waiting for Firebase auth process
         progressBar.setVisibility(View.VISIBLE);
 
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -97,10 +103,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                     if (user.isEmailVerified()) {
-                    // redirect to user profile
+                    // redirect to main user screen and provide main menu
                     startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                         Toast.makeText(MainActivity.this, "login successful", Toast.LENGTH_LONG).show();
                     } else {
+                        // user exists but email not verified. remind user to check email and verify account
                         user.sendEmailVerification();
                         Toast.makeText(MainActivity.this, "check your email, verify account", Toast.LENGTH_LONG).show();
                     }

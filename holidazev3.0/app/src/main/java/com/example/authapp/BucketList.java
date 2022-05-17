@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 public class BucketList extends AppCompatActivity
 {
+    //  declaring variables
     private ListView noteListView;
 
     @Override
@@ -23,11 +24,9 @@ public class BucketList extends AppCompatActivity
         setNoteAdapter();
         setOnClickListener();
     }
-
-
-
     private void initWidgets()
     {
+        // assigning respective view to variable
         noteListView = findViewById(R.id.noteListView);
     }
 
@@ -43,7 +42,7 @@ public class BucketList extends AppCompatActivity
         noteListView.setAdapter(noteAdapter);
     }
 
-
+    // responding to click event
     private void setOnClickListener()
     {
         noteListView.setOnItemClickListener(new AdapterView.OnItemClickListener()

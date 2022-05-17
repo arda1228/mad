@@ -8,7 +8,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 public class UserGuideActivity extends AppCompatActivity {
-
+    //  declaring variable
     private WebView webView;
 
     @Override
@@ -16,6 +16,7 @@ public class UserGuideActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_guide);
 
+        // assigning respective view to variable
         webView = (WebView) findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl("file:///android_asset/UserGuide.html");
@@ -26,7 +27,7 @@ public class UserGuideActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (webView.canGoBack()) {
+        if (webView.canGoBack()) { // flag if the user guide is in its root
             webView.goBack();
         } else {
             super.onBackPressed();

@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ResultsActivity extends AppCompatActivity {
+    //  declaring variables
     private TextView currency, price, tvairlineName0, tvairlineCode0, tvflightNumber0, tvdurationInSeconds0, tvdepartureAirportCode0, tvarrivalAirportCode0, tvairlineName1, tvairlineCode1, tvflightNumber1, tvdurationInSeconds1, tvdepartureAirportCode1, tvarrivalAirportCode1;
     private JSONObject leg0, leg1;
     private CardView cardView1, cardView2;
@@ -23,14 +24,18 @@ public class ResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results2);
 
+        // assigning respective view to variable
         currency = findViewById(R.id.currency);
         price = findViewById(R.id.price);
+
+        // assigning respective view to variable
         tvairlineName0 = findViewById(R.id.airlineName0);
         tvflightNumber0 = findViewById(R.id.flightNumber0);
         tvdurationInSeconds0 = findViewById(R.id.durationInSeconds0);
         tvdepartureAirportCode0 = findViewById(R.id.departureAirportCode0);
         tvarrivalAirportCode0 = findViewById(R.id.arrivalAirportCode0);
 
+        // assigning respective view to variable
         tvairlineName1 = findViewById(R.id.airlineName1);
         tvflightNumber1 = findViewById(R.id.flightNumber1);
         tvdurationInSeconds1 = findViewById(R.id.durationInSeconds1);

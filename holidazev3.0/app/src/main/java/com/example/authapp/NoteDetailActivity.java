@@ -15,6 +15,7 @@ import java.util.Date;
 
 public class NoteDetailActivity extends AppCompatActivity
 {
+    //  declaring variables
     private EditText titleEditText, descEditText;
     private Button deleteButton;
     private Note selectedNote;
@@ -30,6 +31,7 @@ public class NoteDetailActivity extends AppCompatActivity
 
     private void initWidgets()
     {
+        // assigning respective view to variables
         titleEditText = findViewById(R.id.titleEditText);
         descEditText = findViewById(R.id.descriptionEditText);
         deleteButton = findViewById(R.id.deleteNoteButton);
@@ -53,6 +55,7 @@ public class NoteDetailActivity extends AppCompatActivity
         }
     }
 
+    // responding to click event when save button pressed
     public void saveNote(View view)
     {
         SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
@@ -75,6 +78,7 @@ public class NoteDetailActivity extends AppCompatActivity
         finish();
     }
 
+    // responding to click event when delete button pressed
     public void deleteNote(View view)
     {
         selectedNote.setDeleted(new Date());
