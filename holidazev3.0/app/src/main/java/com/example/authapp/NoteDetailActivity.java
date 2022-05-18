@@ -23,6 +23,7 @@ public class NoteDetailActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        // initialising user interface
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_detail);
         initWidgets();
@@ -37,12 +38,12 @@ public class NoteDetailActivity extends AppCompatActivity
         deleteButton = findViewById(R.id.deleteNoteButton);
     }
 
-    private void checkForEditNote()
+    private void checkForEditNote() // checks if the item is being edited or created
     {
         Intent previousIntent = getIntent();
 
         int passedNoteID = previousIntent.getIntExtra(Note.NOTE_EDIT_EXTRA, -1);
-        selectedNote = Note.getNoteForID(passedNoteID);
+        selectedNote = Note.getNoteForID(passedNoteID); // finding item ID
 
         if (selectedNote != null)
         {
@@ -51,18 +52,19 @@ public class NoteDetailActivity extends AppCompatActivity
         }
         else
         {
+            // can not delete a item that has not yet been created
             deleteButton.setVisibility(View.INVISIBLE);
         }
     }
 
     // responding to click event when save button pressed
-    public void saveNote(View view)
+    public void saveNote(View view) // saving note to local database
     {
         SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
         String title = String.valueOf(titleEditText.getText());
         String desc = String.valueOf(descEditText.getText());
 
-        if(selectedNote == null)
+        if(selectedNote == null) // if item is being created
         {
             int id = Note.noteArrayList.size();
             Note newNote = new Note(id, title, desc);
@@ -70,7 +72,7 @@ public class NoteDetailActivity extends AppCompatActivity
             sqLiteManager.addNoteToDatabase(newNote);
         }
         else
-        {
+        { // if item is being edited
             selectedNote.setTitle(title);
             selectedNote.setDescription(desc);
             sqLiteManager.updateNoteInDB(selectedNote);
@@ -79,11 +81,11 @@ public class NoteDetailActivity extends AppCompatActivity
     }
 
     // responding to click event when delete button pressed
-    public void deleteNote(View view)
+    public void deleteNote(View view) // deletes chosen item
     {
-        selectedNote.setDeleted(new Date());
+        selectedNote.setDeleted(new Date()); // sets deleted time to current time
         SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
-        sqLiteManager.updateNoteInDB(selectedNote);
+        sqLiteManager.updateNoteInDB(selectedNote); // removes item from database
         finish();
     }
 }

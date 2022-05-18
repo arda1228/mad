@@ -12,17 +12,17 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
+// helper class for bucket list database
 public class SQLiteManager extends SQLiteOpenHelper
 {
-    //  declaring variables
+    //  declaring variables for database itself
     private static SQLiteManager sqLiteManager;
-
     private static final String DATABASE_NAME = "NoteDB";
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_NAME = "Note";
     private static final String COUNTER = "Counter";
 
+    //  declaring variables for database fields
     private static final String ID_FIELD = "id";
     private static final String TITLE_FIELD = "title";
     private static final String DESC_FIELD = "desc";
@@ -40,7 +40,6 @@ public class SQLiteManager extends SQLiteOpenHelper
     {
         if(sqLiteManager == null)
             sqLiteManager = new SQLiteManager(context);
-
         return sqLiteManager;
     }
 

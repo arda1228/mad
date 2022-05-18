@@ -66,29 +66,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void userLogin() {
+    private void userLogin() { // checks for valid inouts, then checks if user is in database before allowing access
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
-        if (email.isEmpty()) {
+        if (email.isEmpty()) { // ensures email is provided
             editTextEmail.setError("email required");
             editTextEmail.requestFocus();
             return;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) { // ensures that email is in database
             editTextEmail.setError("valid email required");
             editTextEmail.requestFocus();
             return;
         }
 
-        if (password.isEmpty()) {
+        if (password.isEmpty()) { // ensures password is provided
             editTextPassword.setError("password required");
             editTextPassword.requestFocus();
             return;
         }
 
-        if (password.length() < 6) {
+        if (password.length() < 6) { // ensures password is at least 6 characters long
             editTextPassword.setError("password of at least 6 characters required");
             editTextPassword.requestFocus();
             return;
@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //      Set progressBar to visible while user is waiting for Firebase auth process
         progressBar.setVisibility(View.VISIBLE);
 
+        // checking if user is valid
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         user.sendEmailVerification();
                         Toast.makeText(MainActivity.this, "check your email, verify account", Toast.LENGTH_LONG).show();
                     }
-                } else {
+                } else { // user/password combination not found
                     Toast.makeText(MainActivity.this, "failed to log in, check inputs", Toast.LENGTH_LONG).show();
                 }
             }

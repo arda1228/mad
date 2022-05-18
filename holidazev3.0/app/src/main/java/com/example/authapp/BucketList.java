@@ -17,10 +17,11 @@ public class BucketList extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        // initialising user interface, populating with current bucket list items from database
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bucket_list);
         initWidgets();
-        loadFromDBToMemory();
+        loadFromDBToMemory(); // uses SQLiteManager.class
         setNoteAdapter();
         setOnClickListener();
     }
@@ -51,6 +52,7 @@ public class BucketList extends AppCompatActivity
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
             {
                 Note selectedNote = (Note) noteListView.getItemAtPosition(position);
+                // takes user to page where the chosen item's title and description can be edited
                 Intent editNoteIntent = new Intent(getApplicationContext(), NoteDetailActivity.class);
                 editNoteIntent.putExtra(Note.NOTE_EDIT_EXTRA, selectedNote.getId());
                 startActivity(editNoteIntent);
@@ -61,6 +63,7 @@ public class BucketList extends AppCompatActivity
 
     public void newNote(View view)
     {
+        // takes user to page where new item title and description can be written
         Intent newNoteIntent = new Intent(this, NoteDetailActivity.class);
         startActivity(newNoteIntent);
     }

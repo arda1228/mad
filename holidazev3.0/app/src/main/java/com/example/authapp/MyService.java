@@ -10,7 +10,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 public class MyService extends Service {
-    //  declaring variable
+    //  declaring variable to play sound
     private MediaPlayer player;
 
     @Nullable
@@ -21,6 +21,7 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        // when class is called, music plays until it is stopped explicitly
         Log.v("TAG", "in service");
         player = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI);
         player.setLooping(true);

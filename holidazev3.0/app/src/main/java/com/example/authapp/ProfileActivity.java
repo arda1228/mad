@@ -30,12 +30,13 @@ public class ProfileActivity extends AppCompatActivity {
                 @Override
                 public void onLongPress(MotionEvent e) {
                     Toast.makeText(getApplicationContext(), "logging out", Toast.LENGTH_SHORT).show();
+                    // signals to firebase that user has logged out
                     FirebaseAuth.getInstance().signOut();
                     startActivity(new Intent(ProfileActivity.this, MainActivity.class));
                     super.onLongPress(e);
                 }
                 @Override
-                public boolean onSingleTapConfirmed(MotionEvent e) {
+                public boolean onSingleTapConfirmed(MotionEvent e) { // ensures that user doesn't accidentally log out
                     Toast.makeText(getApplicationContext(), "long press to log out", Toast.LENGTH_SHORT).show();
                     return super.onSingleTapConfirmed(e);
                 }
@@ -54,6 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
         bucketList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // moves to chosen page
                 startActivity(new Intent(ProfileActivity.this, BucketList.class));
             }
         });
@@ -64,6 +66,7 @@ public class ProfileActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // moves to chosen page
                 startActivity(new Intent(ProfileActivity.this, SearchActivity.class));
             }
         });
@@ -75,6 +78,7 @@ public class ProfileActivity extends AppCompatActivity {
         userGuide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // moves to chosen page
                 startActivity(new Intent(ProfileActivity.this, UserGuideActivity.class));
             }
         });

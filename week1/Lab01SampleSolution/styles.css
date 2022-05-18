@@ -21,16 +21,11 @@ h1, h2, h3, h4, h5, h6, p {
 h1, h2, h3, h4, h5, h6 {
 	font-family: Arial;
 }
-a img {
-	border: none;
-}
-a:link, a:visited {
-	color: #0B486B;
-	text-decoration: underline;
-}
-a:hover, a:active, a:focus {
-	text-decoration: none;
-}
+.responsive {
+	width: 100%;
+	max-width: 400px;
+	height: auto;
+  }
 
 header {
 	width:100%;

@@ -19,6 +19,7 @@ public class UserGuideActivity extends AppCompatActivity {
         // assigning respective view to variable
         webView = (WebView) findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient());
+        // load responsive user guide webpage
         webView.loadUrl("file:///android_asset/UserGuide.html");
 
         WebSettings webSettings = webView.getSettings();
@@ -27,9 +28,9 @@ public class UserGuideActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (webView.canGoBack()) { // flag if the user guide is in its root
+        if (webView.canGoBack()) { // flag if the user guide is in its root file
             webView.goBack();
-        } else {
+        } else { // takes back to homepage
             super.onBackPressed();
         }
     }

@@ -42,9 +42,7 @@ public class ResultsActivity extends AppCompatActivity {
         tvdepartureAirportCode1 = findViewById(R.id.departureAirportCode1);
         tvarrivalAirportCode1 = findViewById(R.id.arrivalAirportCode1);
 
-
-
-
+        // getting values to be displayed from search
         minCurrencyCode = getIntent().getStringExtra("minCurrencyCode");
         minRoundedAmount = getIntent().getStringExtra("minRoundedAmount");
         String jsonString0 = getIntent().getStringExtra("minCurrentOfferLeg0");
@@ -52,25 +50,31 @@ public class ResultsActivity extends AppCompatActivity {
 
 
         try {
+            // displaying the results
+            // converting received string of results to JSONObjects for processing
             JSONObject leg0 = new JSONObject(jsonString0);
             JSONObject leg1 = new JSONObject(jsonString1);
 
+            // converting flight time from seconds to hours for departure leg
             int leg0durationInSecondsINTEGER =Integer.parseInt(String.valueOf(leg0.get("durationInSeconds")));
             int leg0durationInMinutesINTEGER = (int) (Math.floor(leg0durationInSecondsINTEGER/60));
             int leg0durationHOURS = (int) Math.floor(leg0durationInMinutesINTEGER/60);
             int leg0durationMINUTES = leg0durationInMinutesINTEGER-(leg0durationHOURS*60);
 
+            // converting flight time from seconds to hours for return leg
             int leg1durationInSecondsINTEGER =Integer.parseInt(String.valueOf(leg1.get("durationInSeconds")));
             int leg1durationInMinutesINTEGER = (int) (Math.floor(leg1durationInSecondsINTEGER/60));
             int leg1durationHOURS = (int) Math.floor(leg1durationInMinutesINTEGER/60);
             int leg1durationMINUTES = leg1durationInMinutesINTEGER-(leg1durationHOURS*60);
 
+//          updating values of textviews for departure leg
             tvairlineName0.setText(String.valueOf(leg0.get("airlineName")));
             tvflightNumber0.setText("Flight No.: " + String.valueOf(leg0.get("flightNumber")));
             tvdurationInSeconds0.setText("Flight Time: " + String.valueOf(leg0durationHOURS)+"h"+String.valueOf(leg0durationMINUTES)+"m");
             tvdepartureAirportCode0.setText("From: " + String.valueOf(leg0.get("departureAirportCode")));
             tvarrivalAirportCode0.setText("To: " + String.valueOf(leg0.get("arrivalAirportCode")));
 
+            //          updating values of textviews for return leg
             tvairlineName1.setText(String.valueOf(leg1.get("airlineName")));
             tvflightNumber1.setText("Flight No.: " + String.valueOf(leg1.get("flightNumber")));
             tvdurationInSeconds1.setText("Flight Time: " + String.valueOf(leg1durationHOURS)+"h"+String.valueOf(leg1durationMINUTES)+"m");
@@ -81,9 +85,9 @@ public class ResultsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
+//          updating values of textviews for currency and total price
         currency.setText(minCurrencyCode);
         price.setText(minRoundedAmount);
-        stopService(new Intent(this, MyService.class));
+        stopService(new Intent(this, MyService.class)); // stops search music playing
     }
 }

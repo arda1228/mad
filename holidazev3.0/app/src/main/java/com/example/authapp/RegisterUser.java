@@ -70,48 +70,50 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         String fullName = editTextFullName.getText().toString();
         String age = editTextAge.getText().toString();
 
-        if (fullName.isEmpty()) {
+        if (fullName.isEmpty()) { // ensures name is provided
             editTextFullName.setError("full name required");
             editTextFullName.requestFocus();
             return;
         }
 
-        if (age.isEmpty()) {
+        if (age.isEmpty()) { // ensures age is provided
             editTextAge.setError("age required");
             editTextAge.requestFocus();
             return;
         }
 
-        if (email.isEmpty()) {
+        if (email.isEmpty()) { // ensures email is provided
             editTextEmail.setError("email required");
             editTextEmail.requestFocus();
             return;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) { // ensures valid email is provided
             editTextEmail.setError("email not valid");
             editTextEmail.requestFocus();
             return;
         }
 
-        if (password.isEmpty()) {
+        if (password.isEmpty()) { // ensures password is provided
             editTextPassword.setError("password required");
             editTextPassword.requestFocus();
             return;
         }
 
-        if (password.length() < 6 ) {
+        if (password.length() < 6 ) { // ensures password with length of at least 6 characters is provided
             editTextPassword.setError("6 character password minimum");
             editTextPassword.requestFocus();
             return;
         }
 
+        // creating user to add to database using given email and password
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             User user = new User(fullName, age, email);
+                            // setting up user details in Firebase
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser()
                                             .getUid()).setValue(user)
@@ -122,7 +124,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                         Toast.makeText(RegisterUser.this, "user registered successfully", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
                                        startActivity(new Intent(RegisterUser.this, MainActivity.class));
-
                                         // redirect to login layout
                                     } else {
                                         Toast.makeText(RegisterUser.this, "failed to register, retry", Toast.LENGTH_LONG).show();

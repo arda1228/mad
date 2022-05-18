@@ -28,6 +28,7 @@ import java.net.URL;
 import java.util.Calendar;
 import java.util.Locale;
 
+// uses search terms to query the API
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
     //  declaring variables
     EditText cityEd, cityEd2;
@@ -50,6 +51,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         btnFetch = findViewById(R.id.btn_fet);
         btnFetch.setOnClickListener(this);
 
+        // initialise datepicker views
         initDatePicker();
         initDatePicker2();
 
@@ -75,7 +77,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         return makeDateString(day, month, year);
     }
 
-    private void initDatePicker()
+    private void initDatePicker() // departure date picker
     {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener()
         {
@@ -85,6 +87,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 month = month + 1;
                 String date = makeDateString(day, month, year);
                 dateButton.setText(date);
+                // ensuring second datepicker is set to one day after the first
                 String date2 = makeDateString(day+1,month,year);
                 dateButton2.setText(date2);
             }
@@ -94,19 +97,19 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
-//        day++;
 
         int style = AlertDialog.THEME_HOLO_LIGHT;
 
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
-        //datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        // ensures that the earliest date is tomorrow
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()+(24*60*60000));
+//        ensures that the latest return is 6 months from tomorrow
         cal.add(cal.MONTH,6);
         datePickerDialog.getDatePicker().setMaxDate(cal.getTimeInMillis());
 
     }
 
-    private void initDatePicker2()
+    private void initDatePicker2() // return datepicker
     {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener()
         {
@@ -138,7 +141,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         return getMonthFormat(month) + " " + day + " " + year;
     }
 
-    private String getMonthFormat(int month)
+    private String getMonthFormat(int month) // converts number of month to its displayed name
     {
         if(month == 1)
             return "JAN";
@@ -179,7 +182,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         datePickerDialog2.show();
     }
 
-    private String getAPIFormat(String rawDate)
+    private String getAPIFormat(String rawDate) // converting entered date into format accepted by API
     {
         String[] rawDateSplit = rawDate.split("\\s+");
 
@@ -216,12 +219,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_fet ) {
-            startService(new Intent(this, MyService.class));
+            startService(new Intent(this, MyService.class)); // begin search ringtone, as the API is 'called'
             departing = cityEd.getText().toString();
             destination = cityEd2.getText().toString();
             try {
                 getData(departing, destination);
-                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE); // make progress bar visible
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -229,17 +232,19 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void getData(String departing, String destination) throws MalformedURLException {
+        // generate uri from user inputs and Expedia API endpoint
         Uri uri = Uri.parse("https://www.expedia.com/api/flight/search?departureDate="+getAPIFormat(String.valueOf(dateButton.getText()))+"&returnDate="+getAPIFormat(String.valueOf(dateButton2.getText()))+"&departureAirport=" + departing.toUpperCase(Locale.ROOT) + "&arrivalAirport=" + destination.toUpperCase(Locale.ROOT) + "&nonStopFlight=true")
         .buildUpon().build();
         URL url = new URL(uri.toString());
         Log.v("TAG", String.valueOf(url));
 
+        // initiate DOTask class execute function
         new DOTask().execute(url);
     }
     class DOTask extends AsyncTask<URL, Void, String> {
 
         @Override
-        protected String doInBackground(URL... urls) {
+        protected String doInBackground(URL... urls) { // asynchronous functionality, initiates data reception
              URL url = urls [0];
              String data = null;
             try {
@@ -250,14 +255,14 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             return data;
         }
         @Override
-        protected void onPostExecute(String data) {
+        protected void onPostExecute(String data) {  // when data received
             try {
                 parseJson(data);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        public void parseJson (String data) throws JSONException {
+        public void parseJson (String data) throws JSONException { // process received result
             JSONObject jsonObject = null;
             try {
                 jsonObject = new JSONObject(data);
@@ -285,14 +290,15 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 }
 
                 JSONArray offersAdvanced = new JSONArray();
-                // NEW START
+                // declaring variables to find cheapest flights for return trip on given dates
                 int minRoundedAmount = 1000000;
                 String minCurrencyCode = "";
                 JSONObject minCurrentOfferLeg0 = new JSONObject();
                 JSONObject minCurrentOfferLeg1 = new JSONObject();
                 Boolean thisIndexIsNewMin = false;
-                // NEW END
-                for (int index = 0; index < jsonObject.getJSONArray("offers").length(); index++) {
+
+                    // iterating through received results
+                    for (int index = 0; index < jsonObject.getJSONArray("offers").length(); index++) {
                     JSONObject currentOffer = new JSONObject();
                     JSONArray currentOfferLegs = new JSONArray();
                     String targetLegID;
@@ -303,27 +309,23 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                         currentOfferLegs.put(legsReferenceObject.get(targetLegID));
                     }
                     JSONObject totalFarePriceObj = (JSONObject) offers.get("totalFarePrice");
-                    //NEW START
+
+                    // checking if there is a new minimum price
                     if (index == 0) {
-//                    minRoundedAmount = (Integer) totalFarePriceObj.get("roundedAmount");
                         minRoundedAmount = Integer.parseInt(String.valueOf(totalFarePriceObj.get("roundedAmount")));
                         minCurrencyCode = (String) totalFarePriceObj.get("currencyCode");
                         thisIndexIsNewMin = true;
                     } else {
                         thisIndexIsNewMin = false;
                         if (Integer.parseInt(String.valueOf(totalFarePriceObj.get("roundedAmount"))) < minRoundedAmount) {
-//                        minRoundedAmount = (Integer) totalFarePriceObj.get("roundedAmount");
                             minRoundedAmount = Integer.parseInt(String.valueOf(totalFarePriceObj.get("roundedAmount")));
                             minCurrencyCode = (String) totalFarePriceObj.get("currencyCode");
                             thisIndexIsNewMin = true;
                         }
                     }
-                    //NEW END
-
                     currentOffer.put("currentOfferLegs", currentOfferLegs);
                     currentOffer.put("roundedAmount", totalFarePriceObj.get("roundedAmount"));
                     currentOffer.put("currencyCode", totalFarePriceObj.get("currencyCode"));
-                    //NEW START
                     if (thisIndexIsNewMin) {
                         JSONArray myArray0 = (JSONArray) currentOfferLegs.getJSONArray(0);
                         JSONArray myArray1 = (JSONArray) currentOfferLegs.getJSONArray(1);
@@ -331,26 +333,15 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                         minCurrentOfferLeg0 = (JSONObject) myArray0.get(0);
                         minCurrentOfferLeg1 = (JSONObject) myArray1.get(0);
                     }
-                    // NEW END
-
                     offersAdvanced.put(currentOffer);
-
-
                 }
-                Log.v("TAG", "" + minCurrencyCode + "");
-                Log.v("TAG", "" + minRoundedAmount + "");
-                Log.v("TAG", "" + minCurrentOfferLeg0 + "");
-                Log.v("TAG", "" + minCurrentOfferLeg1 + "");
-
-                    Log.v("TAG", String.valueOf(dateButton.getText()));
-                    Log.v("TAG", String.valueOf(dateButton2.getText()));
-
+                    // sending results packaged to results screen
                 Intent intent = new Intent(SearchActivity.this, ResultsActivity.class);
                 intent.putExtra("minCurrencyCode", minCurrencyCode);
                 intent.putExtra("minRoundedAmount", String.valueOf(minRoundedAmount));
                 intent.putExtra("minCurrentOfferLeg0", minCurrentOfferLeg0.toString()); //cast to json object in next act
                 intent.putExtra("minCurrentOfferLeg1", minCurrentOfferLeg1.toString()); //cast to json object in next act
-                    progressBar.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE); // progress bar stops being visible
                 startActivity(intent);
                 } else {
                 Log.v("TAG", "Legs array empty");
